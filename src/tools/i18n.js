@@ -26,8 +26,8 @@ export default new VueI18n({
   messages: MessageLocal(),
 });
 
-{
-  /* <span>{{ $t("test.lang") }}</span>
+// {
+/* <span>{{ $t("test.lang") }}</span>
     <button @click="changeLanguage()">{{ getLanguage() }}</button>
 
     <b-dropdown
@@ -48,15 +48,15 @@ export default new VueI18n({
                 <span>English</span>
               </b-dropdown-item>
             </b-dropdown> */
-  //   ChangeLanguage(language) {
-  //       this.$i18n.locale = language;
-  //       this.locale = language;
-  //       Validator.locale = language;
-  //       Functions.SaveSessionCustom("page_router", this.$route.path);
-  //       Functions.SaveSessionCustom("language", language);
-  //       return Functions.ToPage("/loading");
-  //     },
-  // languageName() {
-  //       return this.$i18n.locale == "id" ? "Indonesia" : "English";
-  //     },
-}
+//   ChangeLanguage(language) {
+//       this.$i18n.locale = language;
+//       this.locale = language;
+//       Validator.locale = language;
+//       Functions.SaveSessionCustom("page_router", this.$route.path);
+//       Functions.SaveSessionCustom("language", language);
+//       return Functions.ToPage("/loading");
+//     },
+// languageName() {
+//       return this.$i18n.locale == "id" ? "Indonesia" : "English";
+//     },
+// }

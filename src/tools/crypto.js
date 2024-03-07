@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 import router from "../router";
-var hash = require("hash.js");
+// var hash = require("hash.js");
 
 const kunci_akses = "AldyBD";
 

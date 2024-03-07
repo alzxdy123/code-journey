@@ -7,6 +7,10 @@ import pages2C from "./section/pages/pages2C.vue";
 import pages3 from "./section/pages/pages3.vue";
 import pages2C2 from "./section/pages/pages2C2.vue";
 
+import s1s1 from "./section/cuyuniversity/semester1/sesi1.vue";
+
+import loading from "./section/Error/Loading.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -34,6 +38,14 @@ const routes = [
       {
         path: "/pages3",
         component: pages3,
+      },
+      {
+        path: "/semester-1/sesi-1",
+        component: s1s1,
+      },
+      {
+        path: "/loading",
+        component: loading,
       },
     ],
   },

@@ -1,5 +1,14 @@
 {
     "test": {
         "lang": "indonesia"
+    },
+    "semester1": {
+        "sesi1": {
+            "home": "Beranda",
+            "about": "Tentang",
+            "contact": "Kontak",
+            "aboutHome": "Tentang Saya",
+            "contactHome": "Kontak Saya"
+        }
     }
 }

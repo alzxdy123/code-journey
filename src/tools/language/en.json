@@ -1,5 +1,14 @@
 {
     "test": {
         "lang": "english"
+    },
+    "semester1": {
+        "sesi1": {
+            "home": "Home",
+            "about": "About",
+            "contact": "contact",
+            "aboutHome": "About Me",
+            "contactHome": "Contact Me"
+        }
     }
 }

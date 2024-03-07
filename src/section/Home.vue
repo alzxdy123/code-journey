@@ -2,9 +2,19 @@
   <div>
     <div class="home flex">
       <div
-        class="sidebar h-screen w-[250px] bg-slate-900 text-white flex flex-col items-center p-10 gap-5"
+        class="sidebar  h-screen w-[20%] bg-slate-300 dark:bg-slate-900 text-white flex flex-col items-center p-10 gap-5"
       >
-        <div v-for="menu in pages" :key="menu.name" class=" text-white">
+        <div class="dark:text-white text-black">
+          <div @click="changeLanguage2('id')">id</div>
+          <div @click="changeLanguage2('en')">en</div>
+          <!-- <div @click="changeLanguage()">{{ $t("test.lang") }}</div> -->
+          <button @click="toggleDark()">test</button>
+        </div>
+        <div
+          v-for="menu in pages"
+          :key="menu.name"
+          class=" text-black dark:text-white"
+        >
           <div
             @click="handleClickMenu(menu)"
             v-if="menu.children && menu.children.length > 0"
@@ -34,18 +44,18 @@
         </div>
       </div>
 
-      <div class="nav-side bg-red-600">
+      <div class="nav-side absolute left-80 bg-white h-screen">
         <div
-          class="sub-sidebar open bg-blue-500 p-7"
+          class="sub-sidebar open p-7"
           v-if="
               expandedMenu &&
               expandedMenu.children.length > 0 &&
               showExpandedMenu
           "
         >
-          <div class="border-black border">
-            <div class="border border-red-600">
-              <div class="header">
+          <div class="">
+            <div class="">
+              <div class="header text-2xl font-bold pb-5">
                 <p>{{ expandedMenu.text }}</p>
               </div>
               <div class="body">
@@ -57,7 +67,7 @@
                   :key="submenu.href"
                   class="flex"
                 >
-                  <div class="flex bg-yellow-400" @click="test(submenu.href)">
+                  <div class="flex gap-2" @click="test(submenu.href)">
                     <div class="icons">
                       <i :class="submenu.icon"></i>
                     </div>
@@ -74,7 +84,8 @@
         </div>
       </div>
 
-      <div class="main-page">
+      <div class="main-page w-[80%] h-[100%]">
+        <!--  -->
         <router-view></router-view>
       </div>
     </div>
@@ -82,15 +93,23 @@
 </template>
 
 <script>
+import { useDark} from "@vueuse/core";
+import Functions from "../tools/functions"
+
 export default {
     data() {
         return {
             expandedMenu: undefined,
             showExpandedMenu: false,
             IsActive: "",
+            isDark: useDark(),
+            locale: ""
         }
     },
     methods: {
+        toggleDark() {
+          this.isDark = !this.isDark
+        },
         getLanguage() {
             let lang = localStorage.getItem("locale");
             if (lang == null) {
@@ -115,7 +134,16 @@ export default {
             localStorage.setItem("locale", lang)
             this.$validator.localize(lang);
             this.$i18n.locale = lang
-            // location.reload()
+        },
+
+        changeLanguage2(lang) {
+          this.$i18n.locale = lang;
+          this.locale = lang;
+          // Validator.locale = lang;
+          this.$validator.localize(lang);
+          Functions.SaveSessionCustom("page_router", this.$route.path);
+          Functions.SaveSessionCustom("lang", lang);
+          return Functions.ToPage("/loading");
         },
 
         test(href) {
@@ -126,64 +154,64 @@ export default {
             this.toggleMenu(false)
           }
         },
-    setExpandedMenu(menu) {
-      this.expandedMenu = menu;
-    },
-    toggleMenu(val) {
-      this.showExpandedMenu = val;
-    },
-    handleClickMenu(menu) {
-      this.setExpandedMenu(menu);
-      this.toggleMenu(true);
-    },
-    ActiveMenu() {
-      Functions.MenuActive();
-    },
+        setExpandedMenu(menu) {
+          this.expandedMenu = menu;
+        },
+        toggleMenu(val) {
+          this.showExpandedMenu = val;
+        },
+        handleClickMenu(menu) {
+          this.setExpandedMenu(menu);
+          this.toggleMenu(true);
+        },
+        ActiveMenu() {
+          Functions.MenuActive();
+        },
     },
 
     computed: {
-
-
         pages() {
-      return [
-        {
-          name: "pages1",
-          text: "pages 1",
-          icon: "jam jam-grid",
-          href: "/pages1",
-          children: [],
-        },
-        {
-          name: "pages2",
-          text: "pages 2",
-          icon: "jam jam-world",
-          href: "",
-          children: [
+          return [
             {
-              name: "pages2-children1",
-              text: "pages2-children1",
+              name: "s1",
+              text: "Semester 1",
               icon: "jam jam-world",
-              href: "/pages2-children1",
+              href: "",
+              children: [
+                {
+                  name: "s1s1",
+                  text: "Sesi 1",
+                  icon: "jam jam-world",
+                  href: "/semester-1/sesi-1",
+                },
+                {
+                  name: "ch2",
+                  text: "Sesi 2",
+                  icon: "jam jam-world",
+                  href: "/pages2-children2",
+                },
+              ],
             },
             {
-              name: "pages2-children2",
-              text: "pages2-children2",
-              icon: "jam jam-world",
-              href: "/pages2-children2",
+              name: "ch2",
+              text: "Semester 2",
+              icon: "jam jam-grid",
+              href: "/pages1",
+              children: [],
             },
-          ],
+            {
+              name: "s3",
+              text: "pages 3",
+              icon: "jam jam-shield-check",
+              href: "",
+              children: [
+              ]
+            },
+          ];
         },
-        {
-          name: "pages3",
-          text: "pages 3",
-          icon: "jam jam-shield-check",
-          href: "/pages3",
+        submenus() {
+          return this.expandedMenu ? this.expandedMenu.children : [];
         },
-      ];
-    },
-    submenus() {
-      return this.expandedMenu ? this.expandedMenu.children : [];
-    },
     }
 
 }
