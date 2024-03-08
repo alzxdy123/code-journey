@@ -8,6 +8,7 @@ import store from "../store";
 import jwt_decode from "jwt-decode";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import { useDark } from "@vueuse/core";
 
 export default {
   ToPage(page) {
@@ -45,22 +46,6 @@ export default {
       }
     }
   },
-  ReadSessionCustomInternal(key) {
-    let read = localStorage.getItem(key);
-    // // window.console.log(read);
-    if (read == "null") {
-      return null;
-    } else {
-      let dencrypt = Crypto.dencrytion(read);
-      if (dencrypt == "" || dencrypt == undefined) {
-        // window.console.log(key);
-        return null;
-      } else {
-        let JsonToData = JSON.parse(dencrypt);
-        return JsonToData;
-      }
-    }
-  },
   RemoveSessionCustom(key) {
     let read = localStorage.getItem(key);
     if (read == "null") {
@@ -69,5 +54,9 @@ export default {
       localStorage.removeItem(key);
       return true;
     }
+  },
+  toggleDarkMode(page_router) {
+    this.SaveSessionCustom("page_router", page_router);
+    return this.ToPage("/loading");
   },
 };
